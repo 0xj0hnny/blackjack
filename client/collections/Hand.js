@@ -17,13 +17,12 @@ window.Hand = (function(_super) {
   };
 
   Hand.prototype.hit = function() {
-    while (this.scores()[0] < 17) {
-      this.at(0).flip();
-      this.hit();
-    }
     this.add(this.deck.pop()).last();
-    if (this.scores()[0] > 17 && this.scores()[0] < 21) {
-      return this.trigger('stand');
+    if (this.scores()[0] > 21) {
+      this.trigger('busted');
+    }
+    if (this.scores()[0] === 21) {
+      return this.trigger('blackJack');
     }
   };
 
@@ -46,15 +45,13 @@ window.Hand = (function(_super) {
     return this.trigger('stand');
   };
 
-  Hand.prototype.busted = function() {
-    if (this.scores()[0] > 21) {
-      return this.trigger(console.log('You are busted'));
+  Hand.prototype.dealerPlay = function() {
+    this.first().flip();
+    while (this.scores()[0] < 17) {
+      this.hit();
     }
-  };
-
-  Hand.prototype.blackJack = function() {
-    if (this.scores()[0] = 21) {
-      return this.trigger(console.log('Black Jack!'));
+    if (this.scores()[0] >= 17 && this.scores()[0] < 21) {
+      return this.stand();
     }
   };
 

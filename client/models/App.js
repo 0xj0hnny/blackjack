@@ -16,14 +16,34 @@ window.App = (function(_super) {
     playerHand = this.get('playerHand');
     this.set('dealerHand', deck.dealDealer());
     dealerHand = this.get('dealerHand');
-    playerHand.on('stand', function() {
-      return console.log('trigger happened');
-    });
-    playerHand.on('blackjack', function() {
+    playerHand.on('blackJack', function() {
       return console.log('Jack pot');
     });
-    return playerHand.on('busted', function() {
+    playerHand.on('busted', function() {
       return console.log('damn i lost');
+    });
+    playerHand.on('stand', function() {
+      return dealerHand.dealerPlay();
+    });
+    dealerHand.on('blackJack', function() {
+      return console.log('dealer hits Jack pot');
+    });
+    dealerHand.on('busted', function() {
+      return console.log('damn dealer lost?');
+    });
+    return dealerHand.on('stand', function() {
+      var dealerScore, playerScore;
+      dealerScore = dealerHand.scores()[0];
+      playerScore = playerHand.scores()[0];
+      if (dealerScore > playerScore) {
+        console.log('Dealer Wins');
+      }
+      if (playerScore > dealerScore) {
+        console.log('Player Wins');
+      }
+      if (playerScore === dealerScore) {
+        return console.log('Draw Game');
+      }
     });
   };
 
