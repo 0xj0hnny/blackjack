@@ -36,13 +36,13 @@ window.App = (function(_super) {
       dealerScore = dealerHand.scores()[0];
       playerScore = playerHand.scores()[0];
       if (dealerScore > playerScore) {
-        console.log('Dealer Wins');
+        alert('Dealer Wins');
       }
       if (playerScore > dealerScore) {
-        console.log('Player Wins');
+        alert('Player Wins');
       }
       if (playerScore === dealerScore) {
-        return console.log('Draw Game');
+        return alert('Draw Game');
       }
     });
   };

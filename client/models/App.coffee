@@ -17,8 +17,8 @@ class window.App extends Backbone.Model
     	dealerScore = dealerHand.scores()[0]
     	playerScore = playerHand.scores()[0]
     	if dealerScore > playerScore
-    		console.log 'Dealer Wins'
+    		alert('Dealer Wins')
     	if playerScore > dealerScore
-    		console.log 'Player Wins'
+    		alert('Player Wins')
     	if playerScore == dealerScore
-    		console.log 'Draw Game'
+    		alert('Draw Game')

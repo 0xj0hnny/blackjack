@@ -9,6 +9,7 @@
 
 .covered {
   background-image: url("../img/card-back.png");
+  background-size: cover;
   
 }
 
