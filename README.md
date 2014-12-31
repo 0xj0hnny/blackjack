@@ -5,8 +5,10 @@ In order to compile coffee script:
 1). install coffee-script compiler from npm
   
   ```shell
-bower install snippits
+npm install -g coffee-script
 ```
   
 2). Run 
+  ```shell
   coffee --output compiled --map --watch --compile ./
+```
