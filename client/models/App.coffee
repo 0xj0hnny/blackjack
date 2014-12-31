@@ -4,21 +4,20 @@ class window.App extends Backbone.Model
   initialize: ->
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
-    playerHand = @get ('playerHand')
     @set 'dealerHand', deck.dealDealer()
-    dealerHand = @get ('dealerHand')
-    playerHand.on 'blackJack', -> console.log 'Jack pot'
-    playerHand.on 'busted', -> console.log 'damn i lost'
-    playerHand.on 'stand', -> dealerHand.dealerPlay()
 
-    dealerHand.on 'blackJack', -> console.log 'dealer hits Jack pot'
-    dealerHand.on 'busted', -> console.log 'damn dealer lost?'
-    dealerHand.on 'stand', -> 
-    	dealerScore = dealerHand.scores()[0]
-    	playerScore = playerHand.scores()[0]
-    	if dealerScore > playerScore
-    		alert('Dealer Wins')
-    	if playerScore > dealerScore
-    		alert('Player Wins')
-    	if playerScore == dealerScore
-    		alert('Draw Game')
+    playerHand = @get('playerHand')
+    dealerHand = @get('dealerHand')
+    
+    playerHand.on 'blackjack', -> alert 'Blackjack! You win!'
+    playerHand.on 'bust', -> alert 'Bust! Dealer wins!'
+    playerHand.on 'stand', -> dealerHand.play()
+    dealerHand.on 'blackjack', -> alert 'Blackjack! Dealer wins!'
+    dealerHand.on 'bust', -> alert 'Bust! You win!'
+    dealerHand.on 'stand', ->
+      playerScore = playerHand.scores()[0]
+      dealerScore = dealerHand.scores()[0]
+      if playerScore > dealerScore then alert 'Dealer stands. You win!'
+      if dealerScore > playerScore then alert 'Dealer stands. Dealer wins!'
+      if dealerScore == playerScore then alert 'Dealer stands. It\'s a draw!'
+

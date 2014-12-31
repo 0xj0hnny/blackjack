@@ -4,13 +4,26 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
 
+  play: ->
+    while @scores()[0] < 17
+      @at(0).flip()
+      @hit()
+      # if @scores()[0] > 21 then @trigger 'bust'
+    if @scores()[0] >= 17 and @scores()[0] < 21
+      @stand
+
+
   hit: ->
     @add(@deck.pop()).last()
-    if @scores()[0] > 21 
-      @trigger 'busted'
-    if @scores()[0] == 21
-      @trigger 'blackJack'
+    @trigger 'bust' if @scores()[0] > 21
+    @trigger 'blackjack' if @scores()[0] is 21
 
+  stand: ->
+    console.log @scores()[0]
+    @trigger 'stand'
+
+  doAThing: ->
+    console.log 'i am doing a thing'
   scores: ->
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
@@ -22,18 +35,3 @@ class window.Hand extends Backbone.Collection
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
     if hasAce then [score, score + 10] else [score]
-
-  stand: -> 
-    @trigger 'stand'
-
-  dealerPlay: -> 
-    @first().flip()
-    while @scores()[0] < 17
-      @hit()
-    if @scores()[0] >= 17 and @scores()[0] < 21
-      @stand()
-  #busted: ->
-  #  @trigger console.log 'You are busted' if @scores()[0] > 21 
-#
-  #blackJack: -> 
-  #  @trigger console.log 'Black Jack!' if @scores()[0] = 21 
